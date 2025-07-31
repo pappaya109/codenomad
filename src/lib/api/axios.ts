@@ -53,9 +53,9 @@ instance.interceptors.response.use(
           };
 
           return instance(originalRequest);
-        } catch () {
+        } catch (err) {
           // 리프레시 토큰도 만료 시 로그아웃 등 추가 처리
-          console.error('토큰 재발급 실패, 로그아웃 처리');
+          console.error('토큰 재발급 실패, 로그아웃 처리', err);
           clearAuthStore();
           useAuthStore.persist.clearStorage();
           window.location.href = '/login';
