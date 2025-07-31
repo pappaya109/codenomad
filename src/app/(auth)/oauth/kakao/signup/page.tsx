@@ -5,6 +5,7 @@ import instance from '@/lib/api/axios';
 import Input from '@/components/common/Input';
 import ConfirmModal from '@/components/common/ConfirmModal';
 import { useAuthStore } from '@/store/useAuthStore';
+import axios from 'axios';
 
 const KakaoSignupPage = () => {
   const router = useRouter();
@@ -43,9 +44,13 @@ const KakaoSignupPage = () => {
       setUser(user);
 
       router.push('/');
-    } catch (error: any) {
-      const serverMessage = error?.response?.data?.message ?? '회원가입에 실패했습니다.';
-      setErrorMessage(serverMessage);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const serverMessage = error.response?.data?.message ?? '회원가입에 실패했습니다.';
+        setErrorMessage(serverMessage);
+      } else {
+        setErrorMessage('알 수 없는 오류가 발생했습니다.');
+      }
       setIsModalOpen(true);
     }
   };

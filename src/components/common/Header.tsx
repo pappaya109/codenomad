@@ -9,10 +9,10 @@ import { useAuthStore } from '@/store/useAuthStore';
 
 const Header = () => {
   const router = useRouter();
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
-  const isHome = pathname === '/';
-  const isSearch = pathname.startsWith('/search');
+  // const isHome = pathname === '/';
+  // const isSearch = pathname.startsWith('/search');
   const { user, clearAuthStore } = useAuthStore();
 
   // 유저 정보 로드

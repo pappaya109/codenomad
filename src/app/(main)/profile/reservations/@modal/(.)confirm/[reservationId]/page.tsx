@@ -13,9 +13,9 @@ const ConfirmModalPage = () => {
   }
   const onDismiss = async () => {
     try {
-      const res = await cancelReservation(Number(reservationId));
+      await cancelReservation(Number(reservationId));
       router.back();
-    } catch (err) {}
+    } catch {}
   };
   return (
     <>

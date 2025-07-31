@@ -58,7 +58,7 @@ const Input = ({
     }
 
     if (props.onClick) {
-      props.onClick({} as any);
+      (props.onClick as React.MouseEventHandler<Element>)(e);
       return;
     }
 

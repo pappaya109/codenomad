@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import instance from '@/lib/api/axios';
 import { useAuthStore } from '@/store/useAuthStore';
 import LoadingPage from '@/components/common/LoadingPage';
+import axios, { AxiosError } from 'axios';
 
 const KakaoCallbackPage = () => {
   const router = useRouter();
@@ -30,8 +31,8 @@ const KakaoCallbackPage = () => {
         setUser(user);
 
         router.push('/');
-      } catch (err: any) {
-        if ([403, 404].includes(err?.response?.status)) {
+      } catch (err) {
+        if (axios.isAxiosError(err) && [403, 404].includes(err.response?.status ?? 0)) {
           router.replace(`/oauth/kakao/signup?code=${code}`);
         } else {
           alert('카카오 로그인 실패');

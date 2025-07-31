@@ -36,7 +36,6 @@ instance.interceptors.response.use(
       const { status } = error.response;
       const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
       const refreshToken = useAuthStore.getState().refreshToken;
-      const accessToken = useAuthStore.getState().accessToken;
       const setAccessToken = useAuthStore.getState().setAccessToken;
       const setRefreshToken = useAuthStore.getState().setRefreshToken;
       const clearAuthStore = useAuthStore.getState().clearAuthStore;
@@ -54,7 +53,7 @@ instance.interceptors.response.use(
           };
 
           return instance(originalRequest);
-        } catch (err) {
+        } catch () {
           // 리프레시 토큰도 만료 시 로그아웃 등 추가 처리
           console.error('토큰 재발급 실패, 로그아웃 처리');
           clearAuthStore();

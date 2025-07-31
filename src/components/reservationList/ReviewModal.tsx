@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import RatingStar from './RatingStar';
 import { postReview } from '@/lib/api/profile/reservationList';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -33,7 +33,6 @@ const ReviewModal = ({
     resolver: zodResolver(reviewRequestSchema),
     defaultValues: defaultValue,
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const rating = watch('rating');
@@ -54,7 +53,6 @@ const ReviewModal = ({
 
   const submitReview = async (data: ReviewType) => {
     try {
-      setIsSubmitting(true);
       await postReview(reservationId, data);
       router.back();
       router.refresh();
@@ -63,7 +61,6 @@ const ReviewModal = ({
       console.error(error);
       alert('리뷰 제출 실패');
     } finally {
-      setIsSubmitting(false);
     }
   };
   return (

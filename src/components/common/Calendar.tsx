@@ -13,7 +13,6 @@ const cn = (...inputs: (string | undefined)[]) => twMerge(clsx(inputs));
 // 캘린더 타입 정의
 type CalendarValue = Date | null;
 // react-calendar의 정확한 Value 타입 (Range와 ValuePiece 포함)
-type ReactCalendarValue = Date | null | Date[] | [Date | null, Date | null]; // Range 타입도 포함
 
 export interface CalendarProps {
   selectedDate?: CalendarValue;
